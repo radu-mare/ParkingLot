@@ -45,7 +45,7 @@ public class Cars extends HttpServlet {
             out.println("</html>");
         }
     }
-
+                   //ADMIN
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
