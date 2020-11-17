@@ -23,23 +23,22 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Cars", urlPatterns = {"/Cars"})
 public class Cars extends HttpServlet {
-           @Inject
-           private CarBean carBean;
-                   //ADMIN
+
+    @Inject
+    private CarBean carBean;
+    //ADMIN
+
     @Override
-     
-     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-     {
-         
-         request.setAttribute("activePage",10);
-          request.setAttribute("numberOfFreeParkingSpots","Cars");
-          
-          List<CarDetails>cars=carBean.getAllCars();
-          request.setAttribute("cars",cars);
-          
-          request.getRequestDispatcher("/WEB-INF/pages/cars.jsp").forward(request,response);
-         
-         
-     }
-     }
-   
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        request.setAttribute("activePage", 10);
+        request.setAttribute("numberOfFreeParkingSpots", "Cars");
+
+        List<CarDetails> cars = carBean.getAllCars();
+        request.setAttribute("cars", cars);
+
+        request.getRequestDispatcher("/WEB-INF/pages/cars.jsp").forward(request, response);
+
+    }
+}

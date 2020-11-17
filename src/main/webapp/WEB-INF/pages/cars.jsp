@@ -5,9 +5,7 @@
 --%>
 
 
-Radu Hodorog <hodorogradu06@gmail.com>
-10:07 AM (11 minutes ago)
-to me
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -15,6 +13,8 @@ to me
 
 <t:newtag_file pageTitle ="Cars">
     <h1>Cars</h1>
+    
+    <button type="button">Add Car</button>
     
     
     <c:forEach var="car" items="${cars}" varStatus="status">
