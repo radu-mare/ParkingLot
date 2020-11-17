@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.park.parkinglot.ejb;
+package Car;
 
 /**
  *
  * @author Admin
  */
-class Car {
+public class java {
     
 }

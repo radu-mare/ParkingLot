@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.park.parkinglot.common;
+package com.park.parkinglot.common.CarDetails;
 
 /**
  *
@@ -59,3 +59,4 @@ private String username;
     
     
 }
+
