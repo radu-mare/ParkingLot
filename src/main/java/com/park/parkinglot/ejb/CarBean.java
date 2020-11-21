@@ -27,10 +27,7 @@ import com.park.parkinglot.entity.Car;
 
 
 
-/**
- *
- *
- */
+
 @Stateless
 public class CarBean {
 
