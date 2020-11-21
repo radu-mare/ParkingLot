@@ -26,6 +26,7 @@ import com.park.parkinglot.entity.User;
  */
 @Stateless
 public class UserBean {  private static final Logger LOG=Logger.getLogger(UserBean.class.getName());
+@PersistenceContext
  private EntityManager em;
 public List<UserDetails>getAllUsers()
 {   LOG.info("getAllUsers");

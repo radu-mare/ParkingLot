@@ -29,7 +29,7 @@ import com.park.parkinglot.entity.Car;
 
 /**
  *
- * @author Giroe Stefan Bogdan
+ *
  */
 @Stateless
 public class CarBean {

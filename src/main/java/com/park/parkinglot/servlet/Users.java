@@ -6,7 +6,8 @@
 package com.park.parkinglot.servlet;
 
 import com.park.parkinglot.common.CarDetails.CarDetails;
-import com.park.parkinglot.ejb.CarBean;
+import com.park.parkinglot.common.CarDetails.UserDetails;
+import com.park.parkinglot.ejb.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -21,24 +22,23 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "Cars", urlPatterns = {"/Cars"})
-public class Cars extends HttpServlet {
+@WebServlet(name = "Users", urlPatterns = {"/Users"})
+public class Users extends HttpServlet {
 
     @Inject
-    private CarBean carBean;
+    private UserBean userBean;
     //ADMIN
 
     @Override
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setAttribute("activePage", "Cars");
-        request.setAttribute("numberOfFreeParkingSpots", 10);
+       
 
-        List<CarDetails> cars = carBean.getAllCars();
-        request.setAttribute("cars", cars);
+        List<UserDetails> users = userBean.getAllUsers();
+        request.setAttribute("users", users); 
 
-        request.getRequestDispatcher("/WEB-INF/pages/cars.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/users.jsp").forward(request, response);
 
     }
 }
