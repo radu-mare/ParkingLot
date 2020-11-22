@@ -5,6 +5,7 @@
  */
 package com.park.parkinglot.servlet;
 
+import com.park.parkinglot.common.CarDetails.CarDetails;
 import com.park.parkinglot.common.CarDetails.UserDetails;
 import com.park.parkinglot.ejb.CarBean;
 import com.park.parkinglot.ejb.UserBean;
@@ -22,10 +23,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "AddCar", urlPatterns = {"/AddCar"})
-public class AddCar extends HttpServlet {
+@WebServlet(name = "EditCar", urlPatterns = {"/EditCar"})
+public class EditCar extends HttpServlet {
 
-    @Inject
+     @Inject
     UserBean userBean;
     
     @Inject
@@ -38,8 +39,12 @@ public class AddCar extends HttpServlet {
 
         List<UserDetails> users = userBean.getAllUsers();
         request.setAttribute("users", users); 
+        
+        int carId=Integer.parseInt(request.getParameter("id"));
+        CarDetails car = carBean.findById(carId);
+        request.setAttribute("car",car);
 
-        request.getRequestDispatcher("/WEB-INF/pages/addCar.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/editCar.jsp").forward(request, response);
 
     }
      
@@ -47,12 +52,13 @@ public class AddCar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
           String licensePlate=request.getParameter("license_plate");
           String parkingSpot=request.getParameter("parking_spot");
-          int ownerId=Integer.parseInt(request.getParameter("owner_id"));
+          Integer userId=Integer.parseInt(request.getParameter("owner_id"));
+          Integer carId=Integer.parseInt(request.getParameter("car_id"));
 
-          carBean.createCar(licensePlate, parkingSpot, ownerId);
+          carBean.updateCar(carId, licensePlate,parkingSpot, userId);
            
           response.sendRedirect(request.getContextPath()+ "/Cars");
         
     }
 
-}   
+}

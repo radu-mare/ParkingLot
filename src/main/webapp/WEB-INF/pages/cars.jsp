@@ -13,32 +13,42 @@
 
 <t:pageTemplate pageTitle ="Cars">
     <h1>Cars</h1>
-    
-    <a class="nav-link" href="${pageContext.request.contextPath}/AddCar">Add Car <span class="sr-only">(current)</span></a>
-    
-    
+
+
+    <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/AddCar" role="button">Add Car</a>
+
+
+
+
     <c:forEach var="car" items="${cars}" varStatus="status">
-    <div class ="row">
-        <div class ="col-md-4">
-           ${car.licensePlate}  
-           
-        </div> 
-          <div class ="col-md-4">
-             ${car.parkingSpot}  
-          
+        <div class ="row">
+            <div class ="col-md-3">
+                ${car.licensePlate}  
+
+            </div> 
+            <div class ="col-md-3">
+                ${car.parkingSpot}  
+
+            </div>
+            <div class ="col-md-3">
+                ${car.username}    
+
+            </div>
+            <div class ="col-md-3">
+
+                <a  class="btn btn-secondary" href="${pageContext.request.contextPath}/EditCar?id=${car.id}" role="button">Edit Car</a>
+            </div>
+
         </div>
-          <div class ="col-md-4">
-          ${car.username}    
-          
-        </div>
-    </div>
-     
-    
-         
-    
-  </c:forEach>  
-  <h5>Free parking spots: ${numberOfFreeParkingSpots}</h5>   
-  
-   </t:pageTemplate>
+
+
+
+
+    </c:forEach>  
+    <h5>Free parking spots: ${numberOfFreeParkingSpots}</h5>  
+
+
+
+</t:pageTemplate>
 
 
