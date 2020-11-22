@@ -23,6 +23,7 @@ import com.park.parkinglot.ejb.CarBean;
 import com.park.parkinglot.common.CarDetails.CarDetails;
 import com.park.parkinglot.entity.Car;
 import com.park.parkinglot.entity.User;
+import java.util.Collection;
 
 @Stateless
 public class CarBean {
@@ -89,6 +90,15 @@ public class CarBean {
         user.getCars().add(car);
         car.setUser(user);
         
+    }
+
+    public void deleteCarsByIds(Collection<Integer> ids) {
+        LOG.info("deleteCarsByIds");
+        for(Integer id : ids)
+        {
+            Car car = em.find(Car.class, id);
+            em.remove(car);
+        }
     }
     
     
