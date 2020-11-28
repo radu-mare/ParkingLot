@@ -30,12 +30,9 @@ public class AddCar extends HttpServlet {
     
     @Inject
     CarBean carBean;
-    @Override
     
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-       
-
         List<UserDetails> users = userBean.getAllUsers();
         request.setAttribute("users", users); 
 
@@ -45,14 +42,14 @@ public class AddCar extends HttpServlet {
      
      
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-          String licensePlate=request.getParameter("license_plate");
-          String parkingSpot=request.getParameter("parking_spot");
-          int ownerId=Integer.parseInt(request.getParameter("owner_id"));
+        String licensePlate=request.getParameter("license_plate");
+        String parkingSpot=request.getParameter("parking_spot");
+        int ownerId=Integer.parseInt(request.getParameter("owner_id"));
 
-          carBean.createCar(licensePlate, parkingSpot, ownerId);
-           
-          response.sendRedirect(request.getContextPath()+ "/Cars");
+        carBean.createCar(licensePlate, parkingSpot, ownerId);
         
+        response.sendRedirect(request.getContextPath()+ "/Cars");                                             
+
     }
 
 }   

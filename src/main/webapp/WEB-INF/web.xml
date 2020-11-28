@@ -10,7 +10,7 @@
     </session-config>
     <login-config>
         <auth-method>FORM </auth-method>
-        <real-name>jdbcRealm</real-name>
+        <realm-name>jdbcRealm</realm-name>
         <form-login-config>
             <form-login-page>/Login</form-login-page>
             <form-error-page>/Login</form-error-page>
