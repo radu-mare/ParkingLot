@@ -18,6 +18,7 @@ import com.park.parkinglot.ejb.UserBean;
 import com.park.parkinglot.common.CarDetails.CarDetails;
 import com.park.parkinglot.common.CarDetails.UserDetails;
 import com.park.parkinglot.entity.User;
+import java.util.Collection;
 
 
 /**
@@ -64,6 +65,15 @@ public List<UserDetails>getAllUsers()
         
         
         em.persist(user);
+    }
+    
+    public Collection<String> findUsernames(Collection<Integer> userIds){
+        LOG.info("findUsernames");
+        List<String> usernames = (List<String>) em.createQuery("SELECT u.username FROM User u WHERE u.id IN ?1")
+                .setParameter(1, userIds)
+                .getResultList();
+        return usernames;
+        
     }
     
 }

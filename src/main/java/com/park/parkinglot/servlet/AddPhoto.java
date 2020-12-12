@@ -5,28 +5,26 @@
  */
 package com.park.parkinglot.servlet;
 
-import com.park.parkinglot.ejb.UserBean;
-import com.park.parkinglot.util.PasswordUtil;
+import com.park.parkinglot.common.CarDetails.CarDetails;
+import com.park.parkinglot.ejb.CarBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.HttpConstraint;
-import javax.servlet.annotation.ServletSecurity;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author Admin
  */
-@ServletSecurity(value = @HttpConstraint(rolesAllowed = { "AdminRole"} ))
-@WebServlet(name = "AddUser", urlPatterns = {"/AddUser"})
-public class AddUser extends HttpServlet {
-    @Inject
-    UserBean userBean;
+@MultipartConfig
+@WebServlet(name = "AddPhoto", urlPatterns = {"/Cars/AddPhoto"})
+public class AddPhoto extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +43,10 @@ public class AddUser extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddUser</title>");            
+            out.println("<title>Servlet AddPhoto</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddUser at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddPhoto at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,10 +61,17 @@ public class AddUser extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @Inject
+    CarBean carBean;
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/pages/addUser.jsp").forward(request, response);
+        Integer carId = Integer.parseInt(request.getParameter("id"));
+        CarDetails car = carBean.findById(carId);
+        request.setAttribute("car",car);
+        
+       request.getRequestDispatcher("/WEB-INF/pages/addPhoto.jsp").forward(request, response);
     }
 
     /**
@@ -80,16 +85,19 @@ public class AddUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username=request.getParameter("username");
-        String email=request.getParameter("email");
-        String password=request.getParameter("password");
-        String position=request.getParameter("position");
-        
-        String passwordSha256 = PasswordUtil.convertToSha256(password);
-
-        userBean.createUser(username, email, passwordSha256, position);
-        
-        response.sendRedirect(request.getContextPath()+ "/Users");    
+           String carIdAsString = request.getParameter("car_id");
+           Integer carId = Integer.parseInt(carIdAsString);
+           
+           Part filePart = request.getPart("file");
+           String fileName = filePart.getSubmittedFileName();
+           String fileType = filePart.getContentType();
+           long fileSize = filePart.getSize();
+           byte[] fileContent = new byte[(int) fileSize];
+           filePart.getInputStream().read(fileContent);
+           
+           carBean.addPhotoToCar(carId, fileName, fileType, fileContent);
+           response.sendRedirect(request.getContextPath() + "/Cars");
+           
     }
 
     /**
